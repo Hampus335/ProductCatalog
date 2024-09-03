@@ -1,0 +1,26 @@
+﻿<Window x:Class="ProductCatalog.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductCatalog"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- StackPanel för knapparna -->
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <Button Content="Lägg till Produkt" Width="150" Height="30" Margin="0,10,0,0" Click="Button_AddProduct"/>
+            <Button Content="Visa Alla Produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_ShowAllProducts"/>
+            <Button Content="Spara Produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_SaveProducts"/>
+            <Button Content="Ladda Produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_LoadProducts"/>
+        </StackPanel>
+
+        <!-- Frame för att visa sidorna -->
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Margin="10"/>
+    </Grid>
+</Window>
