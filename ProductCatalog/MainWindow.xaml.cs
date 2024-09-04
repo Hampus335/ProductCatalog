@@ -33,8 +33,8 @@ namespace ProductCatalog
         }
 
         private void Button_SaveProducts(object sender, RoutedEventArgs e)
-        {
-
+        {  
+            
         }
 
         private void Button_LoadProducts(object sender, RoutedEventArgs e)

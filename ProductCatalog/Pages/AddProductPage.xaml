@@ -22,8 +22,8 @@
                 <TextBlock Text="{Binding ElementName=comboBox1, Path=SelectedItem}"/>
             </StackPanel>
 
-            <TextBlock Text="Pris:"/>
-            <TextBox Name="ProductPriceTextBox" Width="200" Margin="0,0,0,10"/>
+            <TextBlock Text="Pris: "/>
+            <TextBox Name="ProductPriceTextBox" Width="200" Margin="0,0,0,10" PreviewTextInput="NumberValidationTextBox"></TextBox>
 
             <TextBlock Text="Beskrivning:"/>
             <TextBox Name="ProductDescriptionTextBox" Width="200" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>

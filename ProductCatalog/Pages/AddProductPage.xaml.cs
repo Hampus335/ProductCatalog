@@ -1,10 +1,12 @@
-﻿using ProductCatalog.Products;
+﻿using ProductCatalog.Enums;
+using ProductCatalog.Products;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +25,19 @@ namespace ProductCatalog
         public AddProductPage()
         {
             InitializeComponent();
-            CategoryDropdown.ItemsSource = Enum.GetValues(typeof(Category));
+            CategoryDropdown.ItemsSource = Enum.GetValues(typeof(Categories.Category));
         }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void SaveProducts(object sender, RoutedEventArgs e)
         {
-            Product product = new Product(ProductNameTextBox.Text, CategoryDropdown.SelectedItem, int.Parse(ProductPriceTextBox.Text), ProductDescriptionTextBox.Text);
+            Product product = new Product(ProductNameTextBox.Text, (Categories.Category)CategoryDropdown.SelectedItem, int.Parse(ProductPriceTextBox.Text), ProductDescriptionTextBox.Text);
+            ApplicationState applicationState = new ApplicationState(new List<Product> { product });
+            applicationState.AddProduct(product);
         }
     }
 }
