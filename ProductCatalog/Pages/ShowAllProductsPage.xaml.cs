@@ -24,5 +24,10 @@ namespace ProductCatalog.Pages
         {
             InitializeComponent();
         }
+
+        private void LoadProducts()
+        {
+            DataManagement.LoadData();
+        }
     }
 }

@@ -21,6 +21,6 @@ public class ApplicationState
     public void AddProduct(Product product)
     {
         _products.Add(product);
-        DataManagement.SaveData(product);
+        DataManagement.SaveData(_products);
     }
 }
