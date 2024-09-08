@@ -28,7 +28,7 @@
             <TextBlock Text="Beskrivning:"/>
             <TextBox Name="ProductDescriptionTextBox" Width="200" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>
 
-            <Button Content="Spara Produkt" Width="100" Click="SaveProducts"/>
+            <Button Content="Spara Produkt" Width="100" Click="AddProduct"/>
             </StackPanel>
     </Grid>
 </Page>

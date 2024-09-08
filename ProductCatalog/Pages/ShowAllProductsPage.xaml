@@ -11,6 +11,15 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="Visa alla produkter" FontSize="24" Margin="0,0,0,20"></TextBlock>
+            <ListBox Margin="20" Name="ListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Page>

@@ -29,12 +29,12 @@ namespace ProductCatalog
 
         private void Button_ShowAllProducts(object sender, RoutedEventArgs e)
         {
-            MainFrame.NavigationService.Navigate(new ShowAllProductsPage());
+            MainFrame.NavigationService.Navigate(new ShowAllProductsPage(App.State));
         }
 
         private void Button_SaveProducts(object sender, RoutedEventArgs e)
-        {  
-            
+        {
+
         }
 
         private void Button_LoadProducts(object sender, RoutedEventArgs e)

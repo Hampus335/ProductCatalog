@@ -33,11 +33,10 @@ namespace ProductCatalog
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void SaveProducts(object sender, RoutedEventArgs e)
+        private void AddProduct(object sender, RoutedEventArgs e)
         {
-            Product product = new Product(ProductNameTextBox.Text, (Categories.Category)CategoryDropdown.SelectedItem, int.Parse(ProductPriceTextBox.Text), ProductDescriptionTextBox.Text);
-            ApplicationState applicationState = new ApplicationState(new List<Product> { product });
-            applicationState.AddProduct(product);
+            Product product = Product.Create(ProductNameTextBox.Text, (Categories.Category)CategoryDropdown.SelectedItem, decimal.Parse(ProductPriceTextBox.Text), ProductDescriptionTextBox.Text);
+            App.State.AddProduct(product);
         }
     }
 }

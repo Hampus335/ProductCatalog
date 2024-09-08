@@ -1,5 +1,4 @@
-﻿using ProductCatalog.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,14 +12,14 @@ namespace ProductCatalog;
 static class DataManagement
 {
     private const string DataFilePath = "SavedProducts.json";
-    public static Object LoadData()
+    public static List<Products.Product> LoadData()
     {
         string jsonString = File.ReadAllText(DataFilePath);
-        var savedProducts = JsonSerializer.Deserialize<Product>(jsonString);
+        var savedProducts = JsonSerializer.Deserialize<List<Products.Product>>(jsonString);
         return savedProducts!;
     }
 
-    public static void SaveData(IReadOnlyList<Product> productList)
+    public static void SaveData(IReadOnlyList<Products.Product> productList)
     {
         string productString = JsonSerializer.Serialize(productList);
         File.WriteAllText(DataFilePath, productString);

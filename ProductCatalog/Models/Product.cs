@@ -1,20 +1,26 @@
 ﻿using ProductCatalog.Enums;
+using System.Text.Json.Serialization;
 
 namespace ProductCatalog.Products;
-public class Product
-{
-    public Guid ID { get; set; }
-    public string ProductName { get; set; }
-    public Categories.Category Category { get; set; }
-    public decimal Price { get; set; }
-    public string? Description { get; set; }
-
-    public Product(string productName, Categories.Category chosenCategory, decimal price, string? description)
+    public class Product
     {
-        ID = Guid.NewGuid();  // Generates an unique ID
+        public Guid ID { get; set; }
+        public string ProductName { get; set; }
+        public Categories.Category Category { get; set; }
+        public decimal Price { get; set; }
+        public string? Description { get; set; }
+
+
+    public Product(Guid id, string productName, Categories.Category category, decimal price, string? description)
+    {
+        ID = id;
         ProductName = productName;
-        Category = chosenCategory;
+        Category = category;
         Price = price;
-        Description = description!;
+        Description = description;
+    }   
+
+    public static Product Create(string productName, Categories.Category chosenCategory, decimal price, string? description)
+        => new Product(Guid.NewGuid(), productName, chosenCategory, price, description);
+
     }
-}
