@@ -14,14 +14,29 @@ static class DataManagement
     private const string DataFilePath = "SavedProducts.json";
     public static List<Products.Product> LoadData()
     {
-        string jsonString = File.ReadAllText(DataFilePath);
-        var savedProducts = JsonSerializer.Deserialize<List<Products.Product>>(jsonString);
-        return savedProducts!;
+        if (File.Exists(DataFilePath))
+        {
+            string jsonString = File.ReadAllText(DataFilePath);
+            var savedProducts = JsonSerializer.Deserialize<List<Products.Product>>(jsonString);
+            return savedProducts!;
+        }
+        else
+        {
+            File.WriteAllText(DataFilePath, "[]");
+            return new List<Products.Product>();
+        }
     }
 
     public static void SaveData(IReadOnlyList<Products.Product> productList)
     {
-        string productString = JsonSerializer.Serialize(productList);
-        File.WriteAllText(DataFilePath, productString);
+        if (File.Exists(DataFilePath))
+        {
+            string productString = JsonSerializer.Serialize(productList);
+            File.WriteAllText(DataFilePath, productString);
+        }
+        else
+        {
+            File.WriteAllText(DataFilePath, "[]");
+        }
     }
 }

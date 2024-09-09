@@ -30,6 +30,6 @@ public partial class ShowAllProductsPage : Page
 
     public void LoadProducts(ApplicationState currentState)
     {
-             
+
     }
 }
