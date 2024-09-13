@@ -13,10 +13,10 @@ namespace ProductCatalog.Products;
 
     public Product(Guid id, string productName, Categories.Category category, decimal price, string? description)
     {
-        ID = id;
+        ID          = id;
         ProductName = productName;
-        Category = category;
-        Price = price;
+        Category    = category;
+        Price       = price;
         Description = description;
     }   
 

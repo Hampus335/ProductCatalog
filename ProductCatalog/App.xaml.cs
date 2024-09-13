@@ -10,10 +10,9 @@ namespace ProductCatalog
     public partial class App : Application
     {
         public static ApplicationState State { get; set; } = null!;
-        private void Application_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        internal void App_Startup(object sender, StartupEventArgs e)
         {
             State = new(DataManagement.LoadData());
         }
     }
-
 }

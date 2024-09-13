@@ -6,20 +6,58 @@
       xmlns:local="clr-namespace:ProductCatalog.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ShowAllProductsPage">
+      Title="ShowAllProductsPage"
+      d:DataContext="{d:DesignInstance Type=local:ShowAllProductsPage}">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Visa alla produkter" FontSize="24" Margin="0,0,0,20"></TextBlock>
-            <ListBox Margin="20" Name="ListBox">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />  
+            <ColumnDefinition Width="5" />  
+            <ColumnDefinition Width="*" />  
+        </Grid.ColumnDefinitions>
+
+        <!-- Guide har följts för XAML bindningen då det var nytt. ChatGPT code tutor -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <TextBlock Text="Visa alla produkter" FontSize="24" Margin="0,0,0,10" />
+            <ListBox x:Name="ListBoxProducts" Height="396" Width="284"
+                     SelectionChanged="ListBox_SelectedIndexChanged"
+                     ItemsSource="{Binding Products}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding}" />
-                        </StackPanel>
+                        <TextBlock Text="{Binding ProductName}" Margin="5,0"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+
+        <Border Grid.Column="1" Background="Gray" Width="1" VerticalAlignment="Stretch" />
+
+        
+        <!--Denna sektion har jag använt ChatGPT för att modifiera style, mer specifikt bold font och padding-->
+        <StackPanel Grid.Column="2" Margin="20">
+            <!-- Product Name -->
+            <TextBlock x:Name="ProductName" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
+
+            <!-- Product Category -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Kategori: " FontWeight="Bold" />
+                <TextBlock x:Name="ProductCategory" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <!-- Product Price -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Pris: " FontWeight="Bold"/>
+                <TextBlock x:Name="ProductPrice" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <!-- Product Description -->
+            <TextBlock Text="Beskrivning:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock x:Name="ProductDescription" TextWrapping="Wrap" />
+
+            <!-- Product Description -->
+            <TextBlock Text="ID:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock x:Name="ProductID" TextWrapping="Wrap" />
+        </StackPanel>
+
     </Grid>
 </Page>

@@ -1,35 +1,32 @@
-﻿using Accessibility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProductCatalog.Products;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ProductCatalog.Pages;
-
 /// <summary>
 /// Interaction logic for ShowAllProductsPage.xaml
 /// </summary>
 public partial class ShowAllProductsPage : Page
 {
-    private readonly ApplicationState _currentState;
+    protected ApplicationState State { get; private set; }
     public ShowAllProductsPage(ApplicationState currentState)
     {
         InitializeComponent();
-        _currentState = currentState;
+        State       = currentState;
+        DataContext = State; 
     }
 
-    public void LoadProducts(ApplicationState currentState)
+    private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-
-    }
+        if (ListBoxProducts.SelectedItem is not Product selectedProduct)
+        {
+            return;
+        }
+        ProductName.Text        = selectedProduct.ProductName;
+        ProductCategory.Text    = selectedProduct.Category.ToString();
+        ProductPrice.Text       = selectedProduct.Price.ToString();
+        ProductDescription.Text = selectedProduct.Description;
+        ProductID.Text          = selectedProduct.ID.ToString();
+    } 
 }

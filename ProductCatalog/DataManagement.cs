@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace ProductCatalog;
 static class DataManagement
@@ -16,27 +17,21 @@ static class DataManagement
     {
         if (File.Exists(DataFilePath))
         {
-            string jsonString = File.ReadAllText(DataFilePath);
-            var savedProducts = JsonSerializer.Deserialize<List<Products.Product>>(jsonString);
-            return savedProducts!;
-        }
-        else
-        {
-            File.WriteAllText(DataFilePath, "[]");
-            return new List<Products.Product>();
-        }
-    }
+            try
+            { 
+                return JsonSerializer.Deserialize<List<Products.Product>>(File.ReadAllText(DataFilePath))!;
+            }
 
+            catch (Exception ex)
+            {
+                return new List<Products.Product>();
+            }               
+        }
+        return new List<Products.Product>();
+    }
     public static void SaveData(IReadOnlyList<Products.Product> productList)
     {
-        if (File.Exists(DataFilePath))
-        {
-            string productString = JsonSerializer.Serialize(productList);
-            File.WriteAllText(DataFilePath, productString);
-        }
-        else
-        {
-            File.WriteAllText(DataFilePath, "[]");
-        }
+        string productString = JsonSerializer.Serialize(productList);
+        File.WriteAllText(DataFilePath, productString);
     }
 }
