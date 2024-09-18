@@ -9,6 +9,11 @@
       Title="SearchProducts">
 
     <Grid>
-        
+        <!-- Search Box -->
+        <TextBox x:Name="SearchBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="30" Margin="0,20,0,0" Text="Enter search term"/>
+
+        <!-- Search Button -->
+        <Button Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="30" Margin="325,20,0,0" Click="SearchProduct"/>
     </Grid>
+
 </Page>
