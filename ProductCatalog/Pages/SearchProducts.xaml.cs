@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProductCatalog.Pages
 {
@@ -29,7 +30,7 @@ namespace ProductCatalog.Pages
         // Correct signature for the Button Click event
         private void SearchProduct(object sender, RoutedEventArgs e)
         {
-            var resultat = State.Products.Where(p => p.ProductName.Contains(SearchBox.Text) || p.Description.Contains(SearchBox.Text)).ToList();
+            var foundProducts = State.Products.Where(p => p.ProductName.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) || p.Description?.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == true);
         }
     }
 }

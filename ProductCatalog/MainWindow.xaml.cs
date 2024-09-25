@@ -1,9 +1,5 @@
 ﻿using ProductCatalog.Pages;
-using System.Text;
 using System.Windows;
-using System.Windows.Navigation;
-
-
 
 namespace ProductCatalog;
 

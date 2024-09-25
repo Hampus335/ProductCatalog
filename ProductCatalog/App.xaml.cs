@@ -1,6 +1,6 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using ProductCatalog.Products;
+using ProductCatalog.Services;
 
 namespace ProductCatalog
 {
@@ -10,9 +10,15 @@ namespace ProductCatalog
     public partial class App : Application
     {
         public static ApplicationState State { get; set; } = null!;
+        public  FileService fileService = new FileService();
         internal void App_Startup(object sender, StartupEventArgs e)
         {
-            State = new(DataManagement.LoadData());
+            var loadResult = fileService.LoadData();
+
+            var data = loadResult.Succeeded
+                ? loadResult.Result
+                : new List<Product>();
+            State = new(data.ToList(), fileService);
         }
     }
 }

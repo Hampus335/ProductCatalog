@@ -1,26 +1,26 @@
 ﻿using ProductCatalog.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductCatalog.Services;
 
 
 namespace ProductCatalog;
 
 public class ApplicationState
 {
-    public ApplicationState(List<Product> products)
+    public ApplicationState(List<Product> products, FileService fileService)
     {
         _products = products;
+        _fileService = fileService;
     }
 
     private readonly List<Product> _products;
+    private readonly FileService _fileService;
+    private List<Product> products;
+
     public IReadOnlyList<Product> Products => _products;
 
     public void AddProduct(Product product)
     {
         _products.Add(product);
-        DataManagement.SaveData(_products);
+        _fileService.SaveData(_products);
     }
 }
