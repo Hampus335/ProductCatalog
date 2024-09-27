@@ -5,15 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductCatalog.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="553.815"
       Title="SearchProducts">
 
     <Grid>
         <!-- Search Box -->
-        <TextBox x:Name="SearchBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="30" Margin="0,20,0,0" Text="Enter search term"/>
+        <TextBox x:Name="SearchBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="30" Margin="0,20,0,0"/>
 
         <!-- Search Button -->
         <Button Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="30" Margin="325,20,0,0" Click="SearchProduct"/>
+
+        <ListBox x:Name="ResultsListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="300" Margin="0,70,0,0" SelectionChanged="ProductList_SelectionChanged">
+            <!-- Displaying Product Names -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ProductName}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Description}" Foreground="Gray"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Name="ButtonEdit" Content="Edit Product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Height="30" Margin="426,161,0,0" Click="EditProduct" IsEnabled="False"/>
+        <Button Name="ButtonRemove" Content="Remove Product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Height="30" Margin="426,225,0,0" RenderTransformOrigin="0.477,-0.442" Click="RemoveProduct" IsEnabled="False"/>
+
     </Grid>
 
 </Page>

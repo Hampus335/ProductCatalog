@@ -23,10 +23,10 @@ public partial class ShowAllProductsPage : Page
         {
             return;
         }
-        ProductName.Text        = selectedProduct.ProductName;
-        ProductCategory.Text    = selectedProduct.Category.ToString();
-        ProductPrice.Text       = selectedProduct.Price.ToString();
+        ProductName.Text = selectedProduct.ProductName;
+        ProductCategory.Text = selectedProduct.Category.ToString();
+        ProductPrice.Text = selectedProduct.Price.ToString();
         ProductDescription.Text = selectedProduct.Description;
-        ProductID.Text          = selectedProduct.ID.ToString();
-    } 
+        ProductID.Text = selectedProduct.ID.ToString();
+    }   
 }

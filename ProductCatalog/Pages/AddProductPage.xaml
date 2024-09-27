@@ -5,9 +5,9 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Lägg till Ny Produkt" FontSize="24" Margin="0,0,0,20"/>
+            <TextBlock Text="Add new product" FontSize="24" Margin="0,0,0,20"/>
 
-            <TextBlock Text="Produktnamn:"/>
+            <TextBlock Text="Product Name:"/>
             <TextBox Name="ProductNameTextBox" Width="200" Margin="0,0,0,10"/>
 
             <StackPanel  Grid.Column="0"
@@ -15,20 +15,20 @@
                 <StackPanel.Resources>
                 </StackPanel.Resources>
                 <ComboBox Name="CategoryDropdown"
-            Text="Kategorier"
+            Text="Categories"
             IsEditable="true"
             IsReadOnly="true"/>
 
                 <TextBlock Text="{Binding ElementName=comboBox1, Path=SelectedItem}"/>
             </StackPanel>
 
-            <TextBlock Text="Pris: "/>
+            <TextBlock Text="Price: "/>
             <TextBox Name="ProductPriceTextBox" Width="200" Margin="0,0,0,10" PreviewTextInput="NumberValidationTextBox"></TextBox>
 
-            <TextBlock Text="Beskrivning:"/>
+            <TextBlock Text="Description:"/>
             <TextBox Name="ProductDescriptionTextBox" Width="200" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>
 
-            <Button Content="Spara Produkt" Width="100" Click="AddProduct"/>
+            <Button Content="Save Product" Width="100" Click="AddProduct"/>
             </StackPanel>
     </Grid>
 </Page>

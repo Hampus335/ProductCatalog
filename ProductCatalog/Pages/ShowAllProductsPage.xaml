@@ -18,7 +18,7 @@
 
         <!-- Guide har följts för XAML bindningen då det var nytt. ChatGPT code tutor -->
         <StackPanel Grid.Column="0" Margin="10">
-            <TextBlock Text="Visa alla produkter" FontSize="24" Margin="0,0,0,10" />
+            <TextBlock Text="Show All Products" FontSize="24" Margin="0,0,0,10" />
             <ListBox x:Name="ListBoxProducts" Height="396" Width="284"
                      SelectionChanged="ListBox_SelectedIndexChanged"
                      ItemsSource="{Binding Products}">
@@ -40,18 +40,18 @@
 
             <!-- Product Category -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Kategori: " FontWeight="Bold" />
+                <TextBlock Text="Category: " FontWeight="Bold" />
                 <TextBlock x:Name="ProductCategory" Margin="5,0,0,0"/>
             </StackPanel>
 
             <!-- Product Price -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <TextBlock Text="Pris: " FontWeight="Bold"/>
+                <TextBlock Text="Price: " FontWeight="Bold"/>
                 <TextBlock x:Name="ProductPrice" Margin="5,0,0,0"/>
             </StackPanel>
 
             <!-- Product Description -->
-            <TextBlock Text="Beskrivning:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Text="Description:" FontWeight="Bold" Margin="0,10,0,5"/>
             <TextBlock x:Name="ProductDescription" TextWrapping="Wrap" />
 
             <!-- Product Description -->

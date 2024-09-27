@@ -15,10 +15,10 @@
 
         <!-- StackPanel för knapparna -->
         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="160" Width="150">
-            <Button Content="Lägg till Produkt" Width="150" Height="30" Margin="0,10,0,0" Click="Button_AddProduct"/>
-            <Button Content="Visa Alla Produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_ShowAllProducts"/>
-            <Button Content="Sök Bland Produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_SearchProducts"/>
-            <Button Content="Ta bort alla produkter" Width="150" Height="30" Margin="0,10,0,0" Click="Button_RemoveProducts"/>
+            <Button Content="Add Product" Width="150" Height="30" Margin="0,10,0,0" Click="Button_AddProduct"/>
+            <Button Content="Show All Products" Width="150" Height="30" Margin="0,10,0,0" Click="Button_ShowAllProducts"/>
+            <Button Content="Search For Products" Width="150" Height="30" Margin="0,10,0,0" Click="Button_SearchProducts"/>
+            <Button Content="Remove All Products" Width="150" Height="30" Margin="0,10,0,0" Click="Button_RemoveProducts"/>
         </StackPanel>
 
         <!-- Frame för att visa sidorna -->

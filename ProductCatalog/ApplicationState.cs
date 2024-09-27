@@ -6,15 +6,14 @@ namespace ProductCatalog;
 
 public class ApplicationState
 {
-    public ApplicationState(List<Product> products, FileService fileService)
+    public ApplicationState(List<Product> products, IFileService fileService)
     {
         _products = products;
         _fileService = fileService;
     }
 
     private readonly List<Product> _products;
-    private readonly FileService _fileService;
-    private List<Product> products;
+    private readonly IFileService _fileService;
 
     public IReadOnlyList<Product> Products => _products;
 

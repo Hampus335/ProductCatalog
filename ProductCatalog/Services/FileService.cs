@@ -4,7 +4,7 @@ using ProductCatalog.Models;
 using ProductCatalog.Products;
 
 namespace ProductCatalog.Services;
-public class FileService
+public class FileService : IFileService
 {
     private const string DataFilePath = "SavedProducts.json";
     public ResultResponse<List<Product>> LoadData()
@@ -17,7 +17,7 @@ public class FileService
 
                 return ResultResponse<List<Product>>.Ok(productList);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return ResultResponse<List<Product>>.Error("Something's wrong!");
             }

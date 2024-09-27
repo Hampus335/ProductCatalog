@@ -10,15 +10,17 @@ namespace ProductCatalog
     public partial class App : Application
     {
         public static ApplicationState State { get; set; } = null!;
-        public  FileService fileService = new FileService();
+        public  IFileService FileService = new FileService();
+        private readonly Lazy<ProductService> _lazyProductService = new Lazy<ProductService>(() => new ProductService(State.Products));
+        public ProductService ProductService => _lazyProductService.Value;
         internal void App_Startup(object sender, StartupEventArgs e)
         {
-            var loadResult = fileService.LoadData();
+            var loadResult = FileService.LoadData();
 
             var data = loadResult.Succeeded
                 ? loadResult.Result
                 : new List<Product>();
-            State = new(data.ToList(), fileService);
+            State = new(data.ToList(), FileService);
         }
     }
 }

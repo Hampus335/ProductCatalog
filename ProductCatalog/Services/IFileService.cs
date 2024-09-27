@@ -1,5 +1,11 @@
-﻿namespace ProductCatalog.Services;
+﻿using ProductCatalog.Models;
+using ProductCatalog.Products;
 
-internal class IFileService
+namespace ProductCatalog.Services
 {
+    public interface IFileService
+    {
+        ResultResponse<List<Product>> LoadData();
+        void SaveData(IReadOnlyList<Product> productList);
+    }
 }
