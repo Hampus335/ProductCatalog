@@ -1,4 +1,6 @@
-﻿using ProductCatalog.Pages;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ProductCatalog.Pages;
+using ProductCatalog.Services;
 using System.Windows;
 
 namespace ProductCatalog;
@@ -8,9 +10,11 @@ namespace ProductCatalog;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    private ProductService ProductService;
+    public MainWindow(ProductService productService)
     {
         InitializeComponent();
+        ProductService = productService;
     }
     private void Button_AddProduct(object sender, RoutedEventArgs e)
     {
@@ -19,12 +23,12 @@ public partial class MainWindow : Window
 
     private void Button_ShowAllProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(App.State));
+        MainFrame.NavigationService.Navigate(new ShowAllProductsPage());
     }
 
     private void Button_SearchProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new SearchProducts(App.State));
+        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService));
     }
 
     private void Button_RemoveProducts(object sender, RoutedEventArgs e)

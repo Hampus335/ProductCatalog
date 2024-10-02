@@ -9,12 +9,9 @@ namespace ProductCatalog.Pages;
 /// </summary>
 public partial class ShowAllProductsPage : Page
 {
-    protected ApplicationState State { get; private set; }
-    public ShowAllProductsPage(ApplicationState currentState)
+    public ShowAllProductsPage()
     {
         InitializeComponent();
-        State       = currentState;
-        DataContext = State; 
     }
 
     private void ListBox_SelectedIndexChanged(object sender, EventArgs e)

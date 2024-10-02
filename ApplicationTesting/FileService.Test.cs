@@ -15,16 +15,16 @@ namespace ProductCatalog.Test
 
             List<Product> products = new List<Product>
             {
-                new Product(Guid.NewGuid(), "Laptop", Categories.Category.Kläder, 1200.99m, "High-performance laptop for work and gaming"),
-                new Product(Guid.NewGuid(), "T-shirt", Categories.Category.Leksaker, 19.99m, "Comfortable cotton t-shirt"),
-                new Product(Guid.NewGuid(), "Pizza", Categories.Category.Elektronik, 8.99m, "Delicious cheese pizza with extra toppings")
+                new Product(Guid.NewGuid(), "Laptop", Categories.Category.Clothing, 1200.99m, "High-performance laptop for work and gaming"),
+                new Product(Guid.NewGuid(), "T-shirt", Categories.Category.Toys, 19.99m, "Comfortable cotton t-shirt"),
+                new Product(Guid.NewGuid(), "Pizza", Categories.Category.Electronics, 8.99m, "Delicious cheese pizza with extra toppings")
             };
             ApplicationState applicationState = new(products, _fileService.Object);
 
             var listLengthBeforeProductAdd = products.Count;
 
             // Act
-            applicationState.AddProduct(new Product(Guid.NewGuid(), "Audi R8", Categories.Category.Bilar, 8.99m, "Nice car"));
+            applicationState.AddProduct(new Product(Guid.NewGuid(), "Audi R8", Categories.Category.Cars, 8.99m, "Nice car"));
 
             // Assert
 

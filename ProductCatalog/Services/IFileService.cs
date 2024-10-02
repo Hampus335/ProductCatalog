@@ -1,11 +1,10 @@
 ﻿using ProductCatalog.Models;
 using ProductCatalog.Products;
 
-namespace ProductCatalog.Services
+namespace ProductCatalog.Services;
+
+public interface IFileService
 {
-    public interface IFileService
-    {
-        ResultResponse<List<Product>> LoadData();
-        void SaveData(IReadOnlyList<Product> productList);
-    }
+    ResultResponse<List<Product>> LoadData();
+    void SaveData(IReadOnlyList<Product> productList);
 }

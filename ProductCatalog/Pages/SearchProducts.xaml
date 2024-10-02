@@ -28,7 +28,7 @@
         </ListBox>
 
         <Button Name="ButtonEdit" Content="Edit Product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Height="30" Margin="426,161,0,0" Click="EditProduct" IsEnabled="False"/>
-        <Button Name="ButtonRemove" Content="Remove Product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Height="30" Margin="426,225,0,0" RenderTransformOrigin="0.477,-0.442" Click="RemoveProduct" IsEnabled="False"/>
+        <Button Name="ButtonRemove" Content="Remove Product" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" Height="30" Margin="426,225,0,0" RenderTransformOrigin="0.477,-0.442" Click="ConfirmRemoval" IsEnabled="False"/>
 
     </Grid>
 

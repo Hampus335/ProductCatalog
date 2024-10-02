@@ -1,21 +1,28 @@
 ﻿using ProductCatalog.Products;
-using System.Linq;
 namespace ProductCatalog.Services;
-
-public class ProductService
+    
+public class ProductService : IProductService
 {
-    internal IReadOnlyList<Product> ProductList { get; set; }
-    public ProductService(IReadOnlyList<Product> productList)
+    public IFileService FileService { get; private set; }
+    public List<Product> Products { get; set; }
+    public ProductService(IFileService fileService, List<Product> productList)
     {
-        ProductList = productList;
+        FileService = fileService;
+        Products = productList;
     }
-    internal void RemoveProduct(Guid Id)
+    public void RemoveProduct(Guid Id)
     {
-
+        
     }
-    internal Product EditProduct(Guid Id)
+    public Product EditProduct(Guid Id)
     {
-        Product product = ProductList.FirstOrDefault(p => p.ID == Id);
+        Product product = Products.FirstOrDefault(p => p.ID == Id);
         return product;
+    }
+
+    public void AddProduct(Product product)
+    {
+        Products.Add(product);
+        FileService.SaveData(Products);
     }
 }
