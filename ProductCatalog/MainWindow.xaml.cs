@@ -2,6 +2,7 @@
 using ProductCatalog.Pages;
 using ProductCatalog.Services;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ProductCatalog;
 
@@ -10,29 +11,32 @@ namespace ProductCatalog;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private ProductService ProductService;
-    public MainWindow(ProductService productService)
+    private IProductService ProductService;
+    private IFileService FileService;
+
+    public MainWindow(IProductService productService, IFileService fileService)
     {
         InitializeComponent();
         ProductService = productService;
+        FileService = fileService;
     }
+
     private void Button_AddProduct(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new AddProductPage());
+        MainFrame.NavigationService.Navigate(new AddProductPage(ProductService, null, _ => {}));
     }
 
     private void Button_ShowAllProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new ShowAllProductsPage());
+        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { })));
     }
 
     private void Button_SearchProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService));
+        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { })));
     }
-
     private void Button_RemoveProducts(object sender, RoutedEventArgs e)
     {
-
+        MainFrame.NavigationService.Navigate(new RemoveAllProducts(ProductService, FileService));
     }
 }

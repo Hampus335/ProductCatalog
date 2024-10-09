@@ -24,7 +24,7 @@ public class FileService : IFileService
         }
         return ResultResponse<List<Product>>.Error("File doesn't exist");
     }
-    public void SaveData(IReadOnlyList<Products.Product> productList)
+    public void SaveData(IList<Products.Product> productList)
     {
         string productString = JsonSerializer.Serialize(productList);
         File.WriteAllText(DataFilePath, productString);

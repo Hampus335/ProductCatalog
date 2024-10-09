@@ -19,7 +19,7 @@ namespace ProductCatalog.Test
                 new Product(Guid.NewGuid(), "T-shirt", Categories.Category.Toys, 19.99m, "Comfortable cotton t-shirt"),
                 new Product(Guid.NewGuid(), "Pizza", Categories.Category.Electronics, 8.99m, "Delicious cheese pizza with extra toppings")
             };
-            ApplicationState applicationState = new(products, _fileService.Object);
+            ProductService productService = new(_fileService);
 
             var listLengthBeforeProductAdd = products.Count;
 

@@ -6,5 +6,5 @@ namespace ProductCatalog.Services;
 public interface IFileService
 {
     ResultResponse<List<Product>> LoadData();
-    void SaveData(IReadOnlyList<Product> productList);
+    void SaveData(IList<Product> productList);
 }

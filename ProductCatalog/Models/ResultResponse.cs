@@ -1,5 +1,4 @@
-﻿using  ProductCatalog.Products;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace ProductCatalog.Models;
 

@@ -1,4 +1,5 @@
 ﻿using ProductCatalog.Products;
+using ProductCatalog.Services;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,21 +10,34 @@ namespace ProductCatalog.Pages;
 /// </summary>
 public partial class ShowAllProductsPage : Page
 {
-    public ShowAllProductsPage()
+    public IProductService ProductService { get; set; }
+    public List<Product> Products { get; set; }
+    public Frame MainFrame { get; set; }
+    private AddProductPage AddProductPage { get; set; }
+
+
+    public ShowAllProductsPage(IProductService productService, Frame mainFrame, AddProductPage addProductPage)
     {
         InitializeComponent();
+        ProductService = productService;
+        Products = productService.GetProducts();
+        MainFrame = mainFrame;
+        AddProductPage = addProductPage;
+        this.DataContext = this;
+    } 
+    private void ListBox_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ProductActions.SelectionChanged(ListBoxProducts, ButtonEdit, ButtonRemove, ProductName, ProductPrice, ProductCategory, ProductDescription, ProductID);
+    }
+    private void EditProduct(object sender, RoutedEventArgs e)
+    {
+        Product? selectedProduct = ListBoxProducts.SelectedItem as Product;
+        ProductActions.EditProduct(selectedProduct, ProductService, MainFrame, AddProductPage);
     }
 
-    private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
+    private void ConfirmRemoval(object sender, RoutedEventArgs e)
     {
-        if (ListBoxProducts.SelectedItem is not Product selectedProduct)
-        {
-            return;
-        }
-        ProductName.Text = selectedProduct.ProductName;
-        ProductCategory.Text = selectedProduct.Category.ToString();
-        ProductPrice.Text = selectedProduct.Price.ToString();
-        ProductDescription.Text = selectedProduct.Description;
-        ProductID.Text = selectedProduct.ID.ToString();
-    }   
+        Product? selectedProduct = ListBoxProducts.SelectedItem as Product;
+        ProductActions.ConfirmRemoval(selectedProduct, ProductService);
+    }
 }

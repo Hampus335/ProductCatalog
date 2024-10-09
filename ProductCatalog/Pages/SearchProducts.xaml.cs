@@ -7,42 +7,41 @@ namespace ProductCatalog.Pages;
 
 public partial class SearchProducts : Page
 {
-    protected ProductService _ProductService { get; set; }
-    public SearchProducts(ProductService productService)
+    protected IProductService ProductService { get; set; }
+    public Frame MainFrame { get; set; }
+    private AddProductPage AddProductPage { get; set; }
+    public SearchProducts(IProductService productService, Frame mainFrame, AddProductPage addProductPage)
     {
         InitializeComponent();
-        _ProductService = productService;
+        ProductService = productService;
+        MainFrame = mainFrame;
+        AddProductPage = addProductPage;
     }
 
     // Runs when search button is clicked
     private void SearchProduct(object sender, RoutedEventArgs e)
     {
         //Got help from ChatGPT with the following line 
-        var foundProducts = _ProductService.Products.Where(p => p.ProductName.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) || p.Description?.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == true);
+        var foundProducts = ProductService.GetProducts().Where(p => p.ProductName.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) || p.Description?.Contains(SearchBox.Text, StringComparison.OrdinalIgnoreCase) == true);
         ResultsListBox.ItemsSource = foundProducts;
     }
 
     // Runs when item in listbox is selected
     private void ProductList_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var selectedProduct = ResultsListBox.SelectedItem;
-        ButtonEdit.IsEnabled = true;
-        ButtonRemove.IsEnabled = true;
+        ProductActions.SelectionChanged(ResultsListBox, ButtonEdit, ButtonRemove, ProductName, ProductPrice, ProductCategory, ProductDescription, ProductID);
     }
 
     private void EditProduct(object sender, RoutedEventArgs e)
     {
         Product? selectedProduct = ResultsListBox.SelectedItem as Product;
+        ProductActions.EditProduct(selectedProduct, ProductService, MainFrame, AddProductPage);
     }
 
     private void ConfirmRemoval(object sender, RoutedEventArgs e)
     {
-        MessageBoxResult result = MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-        if (result == MessageBoxResult.Yes)
-        {
-            Product? selectedProduct = ResultsListBox.SelectedItem as Product;
-            _ProductService.RemoveProduct(selectedProduct.ID);
-        }
+        Product? selectedProduct = ResultsListBox.SelectedItem as Product;
+        ProductActions.ConfirmRemoval(selectedProduct, ProductService);
     }
+
 }

@@ -5,7 +5,7 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Add new product" FontSize="24" Margin="0,0,0,20"/>
+            <TextBlock Name="Title" Text="Add new product" FontSize="24" Margin="0,0,0,20"/>
 
             <TextBlock Text="Product Name:"/>
             <TextBox Name="ProductNameTextBox" Width="200" Margin="0,0,0,10"/>
