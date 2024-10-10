@@ -48,11 +48,6 @@ public class ProductService : IProductService
 
                     // Save the updated product list
                     FileService.SaveData(Products);
-                    addProductPage.ProductNameTextBox.Text = existingProduct.ProductName;
-                    addProductPage.CategoryDropdown.DataContext = existingProduct.Category;
-                    addProductPage.CategoryDropdown.Text = existingProduct.Category.ToString();
-                    addProductPage.ProductPriceTextBox.Text = existingProduct.Price.ToString();
-                    addProductPage.ProductDescriptionTextBox.Text = existingProduct.Description;
                 }
             }
         };
