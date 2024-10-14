@@ -1,0 +1,74 @@
+﻿<Page x:Class="ProductCatalog.Pages.ShowAllProductsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProductCatalog.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ShowAllProductsPage"
+      d:DataContext="{d:DesignInstance Type=local:ShowAllProductsPage}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Products List on the Left -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <TextBlock Text="Show All Products" FontSize="24" Margin="0,0,0,10" />
+            <ListBox x:Name="ListBoxProducts" VerticalAlignment="Stretch" Width="284"
+                     SelectionChanged="ListBox_SelectedIndexChanged"
+                     ItemsSource="{Binding Products}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ProductName}" Margin="5,0"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <!--have gotten help from chatgpt with style like padding etc -->   
+        <Border Grid.Column="1" Background="Gray" Width="1" VerticalAlignment="Stretch" />
+
+        <Grid Grid.Column="2" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="ProductName" Grid.Row="0" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Category: " FontWeight="Bold" />
+                <TextBlock x:Name="ProductCategory" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Price: " FontWeight="Bold"/>
+                <TextBlock x:Name="ProductPrice" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <!-- Description and ID in a ScrollViewer to handle overflow -->
+            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Description:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <TextBlock x:Name="ProductDescription" TextWrapping="Wrap" />
+
+                    <TextBlock Text="ID:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <TextBlock x:Name="ProductID" TextWrapping="Wrap"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Buttons at the bottom -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,20,0,0">
+                <Button x:Name="ButtonEdit" Content="Edit Product" Width="104" Height="30" Margin="0,0,10,0" Click="EditProduct" IsEnabled="False"/>
+                <Button x:Name="ButtonRemove" Content="Remove Product" Width="104" Height="30" Click="ConfirmRemoval" IsEnabled="False"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

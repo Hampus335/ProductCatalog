@@ -1,0 +1,34 @@
+﻿<Page x:Class="ProductCatalog.AddProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="AddProductPage">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Name="Title" Text="Add new product" FontSize="24" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Product Name:"/>
+            <TextBox Name="ProductNameTextBox" Width="200" Margin="0,0,0,10"/>
+
+            <StackPanel  Grid.Column="0"
+             Grid.Row="6">
+                <StackPanel.Resources>
+                </StackPanel.Resources>
+                <ComboBox Name="CategoryDropdown"
+            Text="Categories"
+            IsEditable="true"
+            IsReadOnly="true"/>
+
+                <TextBlock Text="{Binding ElementName=comboBox1, Path=SelectedItem}"/>
+            </StackPanel>
+
+            <TextBlock Text="Price: "/>
+            <TextBox Name="ProductPriceTextBox" Width="200" Margin="0,0,0,10" PreviewTextInput="NumberValidationTextBox"></TextBox>
+
+            <TextBlock Text="Description:"/>
+            <TextBox Name="ProductDescriptionTextBox" Width="200" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+            <Button Content="Save Product" Width="100" Click="AddProduct"/>
+            </StackPanel>
+    </Grid>
+</Page>
