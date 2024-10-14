@@ -45,12 +45,12 @@
 
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <TextBlock Text="Category: " FontWeight="Bold" />
-                <TextBlock x:Name="ProductCategory" Margin="5,0,0,0"/>
+                <TextBlock x:Name="ProductCategory" Margin="5,0,0,0" Width="100"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Price: " FontWeight="Bold"/>
-                <TextBlock x:Name="ProductPrice" Margin="5,0,0,0"/>
+                <TextBlock x:Name="ProductPrice" Margin="5,0,0,0" Width="100"/>
             </StackPanel>
 
             <!-- Description and ID in a ScrollViewer to handle overflow -->

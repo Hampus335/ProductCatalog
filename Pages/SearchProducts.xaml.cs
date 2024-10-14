@@ -29,7 +29,7 @@ public partial class SearchProducts : Page
     // Runs when item in listbox is selected
     private void ProductList_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ProductActions.SelectionChanged(ResultsListBox, ButtonEdit, ButtonRemove, ProductName, ProductPrice, ProductCategory, ProductDescription, ProductID);
+        ProductActions.SelectionChanged(ResultsListBox, ButtonEdit, ButtonRemove, ProductName, ProductCategory, ProductPrice, ProductDescription, ProductID);
     }
 
     private void EditProduct(object sender, RoutedEventArgs e)

@@ -12,12 +12,12 @@ namespace ProductCatalog.Pages;
 public partial class ShowAllProductsPage : Page
 {
     public IProductService ProductService { get; set; }
-    public ObservableCollection<Product> Products { get; set; }
+    public List<Product> Products { get; set; }
     public Frame MainFrame { get; set; }
     private AddProductPage AddProductPage { get; set; }
 
 
-    public ShowAllProductsPage(IProductService productService, Frame mainFrame, AddProductPage addProductPage)
+    public ShowAllProductsPage(IProductService productService, Frame mainFrame, AddProductPage addProductPage, Product? selectedItem)
     {
         InitializeComponent();
         ProductService = productService;
@@ -25,10 +25,18 @@ public partial class ShowAllProductsPage : Page
         MainFrame = mainFrame;
         AddProductPage = addProductPage;
         this.DataContext = this;
+        if (selectedItem != null)
+        {
+            ListBoxProducts.SelectedItem = selectedItem;
+        }
+        else if (Products.Any())
+        {
+            ListBoxProducts.SelectedItem = Products.First();
+        }
     } 
     private void ListBox_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
     {
-        ProductActions.SelectionChanged(ListBoxProducts, ButtonEdit, ButtonRemove, ProductName, ProductPrice, ProductCategory, ProductDescription, ProductID);
+        ProductActions.SelectionChanged(ListBoxProducts, ButtonEdit, ButtonRemove, ProductName, ProductCategory, ProductPrice, ProductDescription, ProductID);
     }
     private void EditProduct(object sender, RoutedEventArgs e)
     {

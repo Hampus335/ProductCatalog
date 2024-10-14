@@ -6,6 +6,6 @@ namespace ProductCatalog.Services;
 
 public interface IFileService
 {
-    ResultResponse<ObservableCollection<Product>> LoadData();
+    ResultResponse<List<Product>> LoadData();
     void SaveData(IList<Product> productList);
 }

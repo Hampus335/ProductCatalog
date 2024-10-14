@@ -17,8 +17,9 @@ public partial class AddProductPage : Page
     private bool IsEditing { get; set; }
     private Action<Product?> OnProductSaved { get; set; }
     private Frame MainFrame { get; set; }
+    public string? Origin { get; set; }
 
-    public AddProductPage(IProductService productService, Product? product, Action<Product?> onProductSaved, Frame mainFrame)
+    public AddProductPage(IProductService productService, Product? product, Action<Product?> onProductSaved, Frame mainFrame, string? origin)
     {
         InitializeComponent();
         if (EditProduct(product))
@@ -29,13 +30,14 @@ public partial class AddProductPage : Page
         ProductService = productService;
         OnProductSaved = onProductSaved;
         MainFrame = mainFrame;
+        Origin = origin;
     }
 
     public void CheckAndReadProduct(Product product)
     {
         Product = product;
         ProductNameTextBox.Text = Product.ProductName;
-        CategoryDropdown.DataContext = Product.Category;
+        CategoryDropdown.SelectedItem = Product.Category;
         CategoryDropdown.Text = Product.Category.ToString();
         ProductPriceTextBox.Text = Product.Price.ToString();
         ProductDescriptionTextBox.Text = Product.Description;
@@ -84,7 +86,7 @@ public partial class AddProductPage : Page
             if (IsEditing)
             {
                 Product.ProductName = ProductNameTextBox.Text;
-                Product.Category = (Categories.Category)CategoryDropdown.DataContext;
+                Product.Category = (Categories.Category)CategoryDropdown.SelectedItem;
                 Product.Price = decimal.Parse(ProductPriceTextBox.Text);
                 Product.Description = ProductDescriptionTextBox.Text;
 
@@ -111,8 +113,14 @@ public partial class AddProductPage : Page
                 OnProductSaved?.Invoke(null);
                 if (NavigationService.CanGoBack)
                 {
-                    MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame)));
-                    NavigationService.GoBack();
+                    if (Origin == "ShowProducts")
+                    {
+                        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, null), Product));
+                    }
+                    else if (Origin == "SearchProducts")
+                    {
+                        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, null)));
+                    }
                 }
             }
         }   

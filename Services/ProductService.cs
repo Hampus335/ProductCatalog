@@ -1,5 +1,4 @@
 ﻿using ProductCatalog.Products;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,7 +7,7 @@ namespace ProductCatalog.Services;
 public class ProductService : IProductService
 {
     public IFileService FileService { get; set; }
-    public ObservableCollection<Product> Products { get; set; }
+    public List<Product> Products { get; set; }
     public ProductService(IFileService fileService)
     {
         FileService = fileService;
@@ -18,11 +17,11 @@ public class ProductService : IProductService
         }
         else
         {
-            Products = new ObservableCollection<Product>();
+            Products = new List<Product>();
         }
     }
 
-    public ObservableCollection<Product> GetProducts()
+    public List<Product> GetProducts()
     {
         return Products;
     }
@@ -53,7 +52,7 @@ public class ProductService : IProductService
                 }
             }
         };
-        mainFrame.NavigationService.Navigate(new AddProductPage(this, product, onProductSaved, mainFrame));
+        mainFrame.NavigationService.Navigate(new AddProductPage(this, product, onProductSaved, mainFrame, null));
     }
 
     public void AddProduct(Product product)

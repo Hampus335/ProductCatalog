@@ -8,22 +8,22 @@ namespace ProductCatalog.Services;
 public class FileService : IFileService
 {
     private const string DataFilePath = "SavedProducts.json";
-    public ResultResponse<ObservableCollection<Product>> LoadData()
+    public ResultResponse<List<Product>> LoadData()
     {
         if (File.Exists(DataFilePath))
         {
             try
             {
-                var productList = JsonSerializer.Deserialize<ObservableCollection<Product>>(File.ReadAllText(DataFilePath))!;
+                var productList = JsonSerializer.Deserialize<List<Product>>(File.ReadAllText(DataFilePath))!;
 
-                return ResultResponse<ObservableCollection<Product>>.Ok(productList);
+                return ResultResponse<List<Product>>.Ok(productList);
             }
             catch (Exception)
             {
-                return ResultResponse<ObservableCollection<Product>>.Error("Something's wrong!");
+                return ResultResponse<List<Product>>.Error("Something's wrong!");
             }
         }
-        return ResultResponse<ObservableCollection<Product>>.Error("File doesn't exist");
+        return ResultResponse<List<Product>>.Error("File doesn't exist");
     }
     public void SaveData(IList<Products.Product> productList)
     {
