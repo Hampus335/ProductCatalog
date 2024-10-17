@@ -1,4 +1,5 @@
-﻿using ProductCatalog.Products;
+﻿using ProductCatalog.Pages;
+using ProductCatalog.Products;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,7 +28,7 @@ public static class ProductActions
         productService.OpenEditPage(selectedProduct.ID, mainFrame, addProductPage);
     }
 
-    public static void ConfirmRemoval(Product selectedProduct, IProductService productService)
+    public static void ConfirmRemoval(Product selectedProduct, IProductService productService, IFileService fileService, string origin, Frame mainFrame)
     {
         if (selectedProduct != null)
         {
@@ -36,6 +37,15 @@ public static class ProductActions
             if (result == MessageBoxResult.Yes)
             {
                 productService.RemoveProduct(selectedProduct.ID);
+
+                if (origin == "ShowProducts")
+                {
+                    mainFrame.NavigationService.Navigate(new ShowAllProductsPage(productService, fileService, mainFrame, new AddProductPage(productService, fileService, null, null, mainFrame, null), null));
+                }
+                else if (origin == "SearchProducts")
+                {
+                    mainFrame.NavigationService.Navigate(new SearchProducts(productService, fileService, mainFrame, new AddProductPage(productService, fileService, null, null, mainFrame, null), null));
+                }
             }
         }
     }

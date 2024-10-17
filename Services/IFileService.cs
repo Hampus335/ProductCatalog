@@ -8,4 +8,6 @@ public interface IFileService
 {
     ResultResponse<List<Product>> LoadData();
     void SaveData(IList<Product> productList);
+    ResultResponse<String> LoadOrigin();
+    void SaveOrigin(string origin);
 }

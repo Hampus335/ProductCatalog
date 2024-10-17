@@ -7,5 +7,5 @@ public interface IProductService
     public List<Product> GetProducts();
     void RemoveProduct(Guid Id); 
     void OpenEditPage(Guid Id, Frame mainFrame, AddProductPage addProductPage); 
-    void AddProduct(Product product);
+    Product AddProduct(Product product);
 } 

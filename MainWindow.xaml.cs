@@ -23,17 +23,17 @@ public partial class MainWindow : Window
 
     private void Button_AddProduct(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new AddProductPage(ProductService, null, _ => {}, MainFrame, null));
+        MainFrame.NavigationService.Navigate(new AddProductPage(ProductService, FileService, null, _ => {}, MainFrame, null));
     }
 
     private void Button_ShowAllProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, "ShowProducts"), null));
+        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, FileService, MainFrame, new AddProductPage(ProductService, FileService, null, _ => { }, MainFrame, "ShowProducts"), null));
     }
 
     private void Button_SearchProducts(object sender, RoutedEventArgs e)
     {
-        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, "SearchProduct")));
+        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, FileService, MainFrame, new AddProductPage(ProductService, FileService, null, _ => { }, MainFrame, "SearchProduct"), null));
     }
     private void Button_RemoveProducts(object sender, RoutedEventArgs e)
     {

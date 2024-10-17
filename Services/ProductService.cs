@@ -8,8 +8,11 @@ public class ProductService : IProductService
 {
     public IFileService FileService { get; set; }
     public List<Product> Products { get; set; }
-    public ProductService(IFileService fileService)
+    private readonly IMessageBoxService MessageBoxService;
+
+    public ProductService(IFileService fileService, IMessageBoxService messageBoxService)
     {
+        MessageBoxService = messageBoxService;
         FileService = fileService;
         if (null != fileService.LoadData().Result)
         {
@@ -19,6 +22,7 @@ public class ProductService : IProductService
         {
             Products = new List<Product>();
         }
+        MessageBoxService = messageBoxService;
     }
 
     public List<Product> GetProducts()
@@ -31,7 +35,7 @@ public class ProductService : IProductService
         Products.Remove(product);
         FileService.SaveData(Products);
     }
-    public void OpenEditPage(Guid Id, Frame mainFrame, AddProductPage addProductPage)
+    public void OpenEditPage(Guid Id, Frame? mainFrame, AddProductPage? addProductPage)
     { 
         Product? product = Products.FirstOrDefault(p => p.ID == Id);
         Action<Product?> onProductSaved = (editedProduct) =>
@@ -52,22 +56,26 @@ public class ProductService : IProductService
                 }
             }
         };
-        mainFrame.NavigationService.Navigate(new AddProductPage(this, product, onProductSaved, mainFrame, null));
+        mainFrame.NavigationService.Navigate(new AddProductPage(this, FileService, product, onProductSaved, mainFrame, null));
     }
 
-    public void AddProduct(Product product)
+    public Product? AddProduct(Product product)
     {
-        //if product ID matches, we are editing a product. In that case we don't add a new one
+        // If product ID matches, we are editing a product. In that case we don't add a new one
         if (Products.Any(p => p.ID == product.ID))
         {
-            return;
+            return product; // Return the existing product so it will be edited
         }
+
+        // If the product name already exists, we show a message and return null
         if (Products.Any(p => p.ProductName == product.ProductName))
         {
-            MessageBoxResult result = MessageBox.Show("This product name already exists, choose something else.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
+            MessageBoxService.Show("This product name already exists, choose something else.", "Information");
+            return null;
         }
+
+        // Add the new product
         Products.Add(product);
-        FileService.SaveData(Products);
+        return product;
     }
 }

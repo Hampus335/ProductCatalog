@@ -13,13 +13,13 @@ namespace ProductCatalog;
 public partial class AddProductPage : Page
 {
     private IProductService ProductService { get; set; }
+    private IFileService FileService { get; set; }
     private Product? Product { get; set; }
     private bool IsEditing { get; set; }
     private Action<Product?> OnProductSaved { get; set; }
     private Frame MainFrame { get; set; }
-    public string? Origin { get; set; }
 
-    public AddProductPage(IProductService productService, Product? product, Action<Product?> onProductSaved, Frame mainFrame, string? origin)
+    public AddProductPage(IProductService productService, IFileService fileService, Product? product, Action<Product?>? onProductSaved, Frame mainFrame, string? origin)
     {
         InitializeComponent();
         if (EditProduct(product))
@@ -28,9 +28,13 @@ public partial class AddProductPage : Page
         }
         CategoryDropdown.ItemsSource = Enum.GetValues(typeof(Categories.Category));
         ProductService = productService;
+        FileService = fileService;
         OnProductSaved = onProductSaved;
         MainFrame = mainFrame;
-        Origin = origin;
+        if (origin != null)
+        {
+            FileService.SaveOrigin(origin);
+        }
     }
 
     public void CheckAndReadProduct(Product product)
@@ -103,23 +107,25 @@ public partial class AddProductPage : Page
 
             if (Product == null)
             {
-                MessageBox.Show("Could not add the product, please try again.");
+                MessageBox.Show("Could not add the product, please try again.");            
                 return;
             }
 
             else
             {
-                ProductService.AddProduct(Product);
+                var product = ProductService.AddProduct(Product);
+                FileService.SaveData(ProductService.GetProducts());
                 OnProductSaved?.Invoke(null);
                 if (NavigationService.CanGoBack)
                 {
-                    if (Origin == "ShowProducts")
+                    string origin = FileService.LoadOrigin().Result;
+                    if (origin == "ShowProducts")
                     {
-                        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, null), Product));
+                        MainFrame.NavigationService.Navigate(new ShowAllProductsPage(ProductService, FileService, MainFrame, new AddProductPage(ProductService, FileService, null, _ => { }, MainFrame, null), Product));
                     }
-                    else if (Origin == "SearchProducts")
+                    else if (origin == "SearchProduct")
                     {
-                        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, MainFrame, new AddProductPage(ProductService, null, _ => { }, MainFrame, null)));
+                        MainFrame.NavigationService.Navigate(new SearchProducts(ProductService, FileService, MainFrame, new AddProductPage(ProductService, FileService, null, _ => { }, MainFrame, null), Product));
                     }
                 }
             }

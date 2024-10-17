@@ -1,6 +1,5 @@
 ﻿using ProductCatalog.Products;
 using ProductCatalog.Services;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,15 +11,17 @@ namespace ProductCatalog.Pages;
 public partial class ShowAllProductsPage : Page
 {
     public IProductService ProductService { get; set; }
+    public IFileService FileService { get; set; }
     public List<Product> Products { get; set; }
     public Frame MainFrame { get; set; }
     private AddProductPage AddProductPage { get; set; }
 
 
-    public ShowAllProductsPage(IProductService productService, Frame mainFrame, AddProductPage addProductPage, Product? selectedItem)
+    public ShowAllProductsPage(IProductService productService, IFileService fileService, Frame mainFrame, AddProductPage addProductPage, Product? selectedItem)
     {
         InitializeComponent();
         ProductService = productService;
+        FileService = fileService;
         Products = productService.GetProducts();
         MainFrame = mainFrame;
         AddProductPage = addProductPage;
@@ -47,6 +48,6 @@ public partial class ShowAllProductsPage : Page
     private void ConfirmRemoval(object sender, RoutedEventArgs e)
     {
         Product? selectedProduct = ListBoxProducts.SelectedItem as Product;
-        ProductActions.ConfirmRemoval(selectedProduct, ProductService);
+        ProductActions.ConfirmRemoval(selectedProduct, ProductService, FileService, "ShowProducts", MainFrame);
     }
 }

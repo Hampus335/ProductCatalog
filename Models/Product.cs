@@ -1,5 +1,4 @@
 ﻿using ProductCatalog.Enums;
-using System.Text.Json.Serialization;
 
 namespace ProductCatalog.Products;
     public class Product

@@ -14,6 +14,7 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
         services.AddSingleton<IFileService, FileService>();
+        services.AddSingleton<IMessageBoxService, MessageBoxService>();
         services.AddSingleton<IProductService, ProductService>();
 
         var serviceProvider = services.BuildServiceProvider();
