@@ -10,7 +10,7 @@ public class ResultResponse<T> where T : class
     public string? Message { get; init; }
     public T? Result { get; init; }
 
-    private ResultResponse(bool succeeded, string? message = null, T? result = default)
+    public ResultResponse(bool succeeded, string? message = null, T? result = default)
     {
         Succeeded = succeeded;
         Message = message;
