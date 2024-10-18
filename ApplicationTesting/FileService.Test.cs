@@ -9,6 +9,8 @@ public class FileServiceTest
 {
     private readonly FileService _fileService = new();
     private readonly MessageBoxService messageBoxService = new();
+    private readonly string _tempDataFilePath = Path.Combine(Path.GetTempPath(), "SavedProducts.json");
+
     [Fact]
     public void ProductList_Should_Be_One_More()
     {
@@ -65,39 +67,34 @@ public class FileServiceTest
     }
 
     [Fact]
-    public void EditProduct_ShouldUpdateProductDetails()
+    public void UpdateProduct_ShouldModifyExistingProduct()
     {
         // Arrange
-        var mockProductService = new Mock<IProductService>();
         var mockFileService = new Mock<IFileService>();
-
         var productToEdit = new Product(Guid.NewGuid(), "Old Name", Categories.Category.Toys, 100m, "desc");
+        var updatedProduct = new Product(productToEdit.ID, "New Name", Categories.Category.MusicEquipment, 150m, "new desc");
 
-        var updatedProduct = new Product(productToEdit.ID, "New Name", Categories.Category.MusicEquipment, 150m, "desc");
-
-
-        mockProductService.Setup(s => s.GetProducts()).Returns(new List<Product> { productToEdit });
+        var productService = new ProductService(mockFileService.Object, new Mock<IMessageBoxService>().Object);
+        productService.AddProduct(productToEdit); 
 
         // Act
-        var productService = new ProductService(mockFileService.Object, new Mock<IMessageBoxService>().Object);
-        productService.AddProduct(updatedProduct);
+        productService.UpdateProduct(updatedProduct);
 
         // Assert
         var updated = productService.GetProducts().FirstOrDefault(p => p.ID == productToEdit.ID);
         Assert.Equal("New Name", updated?.ProductName);
         Assert.Equal(150m, updated?.Price);
-        Assert.Equal(Categories.Category.Hobby, updated?.Category);
+        Assert.Equal(Categories.Category.MusicEquipment, updated?.Category);
+        Assert.Equal("new desc", updated?.Description);
 
-        // Verify that file saving happens
+        // Verify file save
         mockFileService.Verify(s => s.SaveData(It.IsAny<List<Product>>()), Times.Once);
     }
-
-    private readonly string _tempDataFilePath = Path.Combine(Path.GetTempPath(), "TempSavedProducts.json");
 
     [Fact]
     public void SaveData_ShouldSaveProductsToFile_AndLoadData_ShouldReadFromFile()
     {
-        // Arrange
+        // Arrange  
         var fileService = new FileService();
 
         IList<Product> productsToSave = new List<Product>

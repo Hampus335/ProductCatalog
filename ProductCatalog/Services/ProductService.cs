@@ -14,9 +14,11 @@ public class ProductService : IProductService
     {
         MessageBoxService = messageBoxService;
         FileService = fileService;
-        if (null != fileService.LoadData().Result)
+        var products = fileService.LoadData();
+        var result = products.Result;
+        if (null != result)
         {
-            Products = fileService.LoadData().Result!;
+            Products = result;
         }
         else
         {
@@ -35,29 +37,34 @@ public class ProductService : IProductService
         Products.Remove(product);
         FileService.SaveData(Products);
     }
+    public void UpdateProduct(Product editedProduct)
+    {
+        var existingProduct = Products.FirstOrDefault(p => p.ID == editedProduct.ID);
+        if (existingProduct != null)
+        {
+            existingProduct.ProductName = editedProduct.ProductName;
+            existingProduct.Category = editedProduct.Category;
+            existingProduct.Price = editedProduct.Price;
+            existingProduct.Description = editedProduct.Description;
+
+            // Save the updated product list
+            FileService.SaveData(Products);
+        }
+    }
+
     public void OpenEditPage(Guid Id, Frame? mainFrame, AddProductPage? addProductPage)
-    { 
+    {
         Product? product = Products.FirstOrDefault(p => p.ID == Id);
         Action<Product?> onProductSaved = (editedProduct) =>
         {
             if (editedProduct != null)
             {
-                // Update the existing product in the list if it exists
-                var existingProduct = Products.FirstOrDefault(p => p.ID == editedProduct.ID);
-                if (existingProduct != null)
-                {
-                    existingProduct.ProductName = editedProduct.ProductName;
-                    existingProduct.Category = editedProduct.Category;
-                    existingProduct.Price = editedProduct.Price;
-                    existingProduct.Description = editedProduct.Description;
-
-                    // Save the updated product list
-                    FileService.SaveData(Products);
-                }
+                UpdateProduct(editedProduct);
             }
         };
         mainFrame.NavigationService.Navigate(new AddProductPage(this, FileService, product, onProductSaved, mainFrame, null));
     }
+
 
     public Product? AddProduct(Product product)
     {
