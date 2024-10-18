@@ -1,5 +1,4 @@
 ﻿using ProductCatalog.Products;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace ProductCatalog.Services;
