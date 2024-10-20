@@ -114,7 +114,7 @@ public partial class AddProductPage : Page
             else
             {
                 var product = ProductService.AddProduct(Product);
-                FileService.SaveData(ProductService.GetProducts());
+                FileService.SaveData(ProductService.GetProducts(), "SavedProducts.json");
                 OnProductSaved?.Invoke(null);
                 if (NavigationService.CanGoBack)
                 {

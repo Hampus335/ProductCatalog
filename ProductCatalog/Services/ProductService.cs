@@ -13,7 +13,7 @@ public class ProductService : IProductService
     {
         MessageBoxService = messageBoxService;
         FileService = fileService;
-        var products = fileService.LoadData();
+        var products = fileService.LoadData("SavedProducts.json");
         var result = products.Result;
         if (null != result)
         {
@@ -34,7 +34,7 @@ public class ProductService : IProductService
     {
         Product? product = Products.FirstOrDefault(p => p.ID == Id);
         Products.Remove(product);
-        FileService.SaveData(Products);
+        FileService.SaveData(Products, "SavedProducts.json");
     }
     public void UpdateProduct(Product editedProduct)
     {
@@ -47,7 +47,7 @@ public class ProductService : IProductService
             existingProduct.Description = editedProduct.Description;
 
             // Save the updated product list
-            FileService.SaveData(Products);
+            FileService.SaveData(Products, "SavedProducts.json");
         }
     }
 

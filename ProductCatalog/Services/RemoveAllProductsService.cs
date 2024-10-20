@@ -31,6 +31,6 @@ public partial class RemoveAllProducts : Page
     public void RemoveProducts()
     {
         Products.Clear();
-        FileService.SaveData(Products);
+        FileService.SaveData(Products, "SavedProducts.json");
     }
 }

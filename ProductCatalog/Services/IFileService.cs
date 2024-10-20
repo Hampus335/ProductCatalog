@@ -6,8 +6,8 @@ namespace ProductCatalog.Services;
 
 public interface IFileService
 {
-    ResultResponse<List<Product>> LoadData();
-    void SaveData(IList<Product> productList);
+    ResultResponse<List<Product>> LoadData(string path);
+    void SaveData(IList<Product> productList, string path);
     ResultResponse<String> LoadOrigin();
     void SaveOrigin(string origin);
 }

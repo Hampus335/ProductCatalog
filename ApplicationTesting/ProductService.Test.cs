@@ -23,7 +23,7 @@ public class ProductServiceTest
         };
 
         // Simulate the file service saving the list of products
-        _fileService.SaveData(products);
+        _fileService.SaveData(products, "SavedProducts.json");
 
         ProductService productService = new ProductService(_fileService, messageBoxService);
 
@@ -53,7 +53,7 @@ public class ProductServiceTest
         };
 
         // Simulate the file service saving the list of products
-        _fileService.SaveData(products);
+        _fileService.SaveData(products, "SavedProducts.json");
 
         ProductService productService = new ProductService(_fileService, messageBoxService);
 
@@ -78,7 +78,7 @@ public class ProductServiceTest
         var updatedProduct = new Product(productToEdit.ID, "New Name", Categories.Category.MusicEquipment, 150m, "desc");
 
         var resultResponse = new ResultResponse<List<Product>>(true, null, null) { Result = new List<Product> { productToEdit } };
-        mockFileService.Setup(s => s.LoadData()).Returns(resultResponse);
+        mockFileService.Setup(s => s.LoadData("SavedProducts.json")).Returns(resultResponse);
 
         mockProductService.Setup(s => s.GetProducts()).Returns(new List<Product> { productToEdit });
 
@@ -93,6 +93,6 @@ public class ProductServiceTest
         Assert.Equal(Categories.Category.MusicEquipment, updated?.Category);
 
         // Verify that file saving happens
-        mockFileService.Verify(s => s.SaveData(It.IsAny<List<Product>>()), Times.Once);
+        mockFileService.Verify(s => s.SaveData(It.IsAny<List<Product>>(), "SavedProducts.json"), Times.Once);
     }
 }

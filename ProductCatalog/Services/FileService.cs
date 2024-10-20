@@ -6,15 +6,14 @@ using ProductCatalog.Products;
 namespace ProductCatalog.Services;
 public class FileService : IFileService
 {
-    private const string DataFilePath = "SavedProducts.json";
     private const string OriginFilePath = "Origin.json";
-    public ResultResponse<List<Product>> LoadData()
+    public ResultResponse<List<Product>> LoadData(string path)
     {
-        if (File.Exists(DataFilePath))
+        if (File.Exists(path))
         {
             try
             {
-                var productList = JsonSerializer.Deserialize<List<Product>>(File.ReadAllText(DataFilePath))!;
+                var productList = JsonSerializer.Deserialize<List<Product>>(File.ReadAllText(path))!;
 
                 return ResultResponse<List<Product>>.Ok(productList);
             }
@@ -25,10 +24,10 @@ public class FileService : IFileService
         }
         return ResultResponse<List<Product>>.Error("File doesn't exist.");
     }
-    public void SaveData(IList<Products.Product> productList)
+    public void SaveData(IList<Products.Product> productList, string path)
     {
         string productString = JsonSerializer.Serialize(productList);
-        File.WriteAllText(DataFilePath, productString);
+        File.WriteAllText(path, productString);
     }
 
     public ResultResponse<String> LoadOrigin()

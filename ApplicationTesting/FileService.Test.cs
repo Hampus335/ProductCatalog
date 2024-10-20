@@ -1,8 +1,6 @@
-﻿using Castle.Core.Logging;
-using ProductCatalog.Enums;
+﻿using ProductCatalog.Enums;
 using ProductCatalog.Products;
 using ProductCatalog.Services;
-using Xunit.Sdk;
 
 namespace ProductCatalog.Test;
 
@@ -22,13 +20,13 @@ public class FileServiceTest
         };
 
         // act - Save products to a temporary file
-        fileService.SaveData(productsToSave);
+        fileService.SaveData(productsToSave, "SavedProducts.json");
 
         // assert - Ensure file was saved successfully
         Assert.True(File.Exists(_tempDataFilePath), "Data file should exist after saving.");
 
         // act - Load products from the file
-        var loadedProducts = fileService.LoadData().Result;
+        var loadedProducts = fileService.LoadData("SavedProducts.json").Result;
 
         // assert - Check that loaded products match saved products
         Assert.NotNull(loadedProducts);
@@ -40,27 +38,17 @@ public class FileServiceTest
     }
 
     [Fact]
-    public async Task LoadData_WhenFileIsMissing()
+    public async Task LoadData_ReturnsTrueWhenFileIsMissing()
     {
-        // arrange  
+        // arrange
         var fileService = new FileService();
+        var invalidFilePath = @"C:/this/path/does/not/exist";
 
-        if (File.Exists(_tempDataFilePath))
-        {
-            File.Delete(_tempDataFilePath);
-        }
+        // act - Try to load products from an invalid path
+        var loadedProducts = fileService.LoadData(invalidFilePath);
 
-        // act - Try to load products from the file
-        var loadedProducts = await Task.Run(fileService.LoadData);
-        if (!loadedProducts.Succeeded)
-        {
-            // assert
-            Assert.Null(loadedProducts.Result);
-        }
-        else
-        {
-            // we got a success from LoadProducts which is a wrong when we don't have a file
-            Assert.True(false);
-        }
+        // assert
+        Assert.False(loadedProducts.Succeeded);
+        Assert.Null(loadedProducts.Result);
     }
 }
